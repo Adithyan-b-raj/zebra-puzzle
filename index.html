@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zebra Puzzle Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 69, 19, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(139, 69, 19, 0.6); }
+        }
+        
+        @keyframes pulse-glow-dark {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.7); }
+        }
+        
+        .float-animation { animation: float 3s ease-in-out infinite; }
+        .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .pulse-glow-dark { animation: pulse-glow-dark 2s ease-in-out infinite; }
+        
+        .zebra-stripe {
+            background: linear-gradient(45deg, 
+                transparent 25%, 
+                rgba(0,0,0,0.1) 25%, 
+                rgba(0,0,0,0.1) 50%, 
+                transparent 50%, 
+                transparent 75%, 
+                rgba(0,0,0,0.1) 75%);
+            background-size: 20px 20px;
+        }
+        
+        .zebra-stripe-dark {
+            background: linear-gradient(45deg, 
+                transparent 25%, 
+                rgba(255,255,255,0.1) 25%, 
+                rgba(255,255,255,0.1) 50%, 
+                transparent 50%, 
+                transparent 75%, 
+                rgba(255,255,255,0.1) 75%);
+            background-size: 20px 20px;
+        }
+        
+        .theme-transition {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen theme-transition">
+    <!-- Decorative Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-10 left-10 text-6xl opacity-20 float-animation">🦓</div>
+        <div class="absolute top-20 right-20 text-4xl opacity-15 float-animation" style="animation-delay: 1s;">🏠</div>
+        <div class="absolute bottom-20 left-20 text-5xl opacity-10 float-animation" style="animation-delay: 2s;">🧩</div>
+        <div class="absolute bottom-10 right-10 text-3xl opacity-20 float-animation" style="animation-delay: 0.5s;">🔍</div>
+        <div class="absolute top-1/2 left-5 text-4xl opacity-15 float-animation" style="animation-delay: 1.5s;">🎯</div>
+        <div class="absolute top-1/3 right-5 text-5xl opacity-10 float-animation" style="animation-delay: 2.5s;">🧠</div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="fixed top-6 right-6 z-50">
+        <button id="themeToggle" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-3 rounded-full shadow-lg border border-amber-200 dark:border-gray-600 hover:shadow-xl transition-all duration-300 theme-transition">
+            <div class="w-6 h-6 flex items-center justify-center">
+                <span id="lightIcon" class="text-xl">☀️</span>
+                <span id="darkIcon" class="text-xl hidden">🌙</span>
+            </div>
+        </button>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto p-6">
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <div class="inline-block mb-4">
+                <div class="bg-white dark:bg-gray-800 rounded-full p-6 shadow-2xl pulse-glow dark:pulse-glow-dark border-4 border-amber-200 dark:border-yellow-400 theme-transition">
+                    <div class="text-8xl">🦓</div>
+                </div>
+            </div>
+            <h1 class="text-6xl font-bold bg-gradient-to-r from-amber-800 via-orange-700 to-yellow-800 dark:from-yellow-400 dark:via-amber-300 dark:to-orange-400 bg-clip-text text-transparent mb-4 theme-transition">
+                The Zebra Puzzle
+            </h1>
+            <div class="flex justify-center items-center space-x-4 mb-4">
+                <div class="h-1 w-16 bg-gradient-to-r from-amber-400 to-orange-500 dark:from-yellow-400 dark:to-amber-400 rounded theme-transition"></div>
+                <div class="text-2xl">🧩</div>
+                <div class="h-1 w-16 bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-amber-400 dark:to-yellow-300 rounded theme-transition"></div>
+            </div>
+            <p class="text-xl text-amber-800 dark:text-yellow-300 font-medium max-w-2xl mx-auto theme-transition">
+                Challenge Your Logic • Test Your Deduction • Solve the Mystery
+            </p>
+        </header>
+
+        <!-- Decorative Info Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200 dark:border-gray-600 hover:shadow-xl transition-all duration-300 theme-transition">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🏘️</div>
+                    <h3 class="text-lg font-bold text-amber-800 dark:text-yellow-300 mb-2 theme-transition">5 Houses</h3>
+                    <p class="text-amber-700 dark:text-yellow-200 text-sm theme-transition">Each with unique colors, owners, and secrets to uncover</p>
+                </div>
+            </div>
+            
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-orange-200 dark:border-gray-600 hover:shadow-xl transition-all duration-300 theme-transition">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🔍</div>
+                    <h3 class="text-lg font-bold text-orange-800 dark:text-amber-300 mb-2 theme-transition">20 Clues</h3>
+                    <p class="text-orange-700 dark:text-amber-200 text-sm theme-transition">Logical hints to guide you to the solution</p>
+                </div>
+            </div>
+            
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-yellow-200 dark:border-gray-600 hover:shadow-xl transition-all duration-300 theme-transition">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🎯</div>
+                    <h3 class="text-lg font-bold text-yellow-800 dark:text-orange-300 mb-2 theme-transition">1 Goal</h3>
+                    <p class="text-yellow-700 dark:text-orange-200 text-sm theme-transition">Discover the correct combination</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Container with Iframe -->
+        <div class="relative">
+            <!-- Decorative Frame -->
+            <div class="absolute -inset-4 bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 dark:from-yellow-500 dark:via-amber-500 dark:to-orange-500 rounded-3xl opacity-20 blur-sm theme-transition"></div>
+            <div class="absolute -inset-2 zebra-stripe dark:zebra-stripe-dark rounded-2xl opacity-30 theme-transition"></div>
+            
+            <!-- Main Content Box -->
+            <div class="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-amber-300 dark:border-yellow-500 overflow-hidden theme-transition">
+                <!-- Content Header -->
+                <div class="bg-gradient-to-r from-amber-100 to-orange-100 dark:from-gray-700 dark:to-gray-600 p-6 border-b-2 border-amber-200 dark:border-gray-600 theme-transition">
+                    <div class="flex items-center justify-center space-x-4">
+                        <div class="text-3xl">🧠</div>
+                        <h2 class="text-2xl font-bold text-amber-800 dark:text-yellow-300 theme-transition">Logic Challenge Arena</h2>
+                        <div class="text-3xl">🎲</div>
+                    </div>
+                    <p class="text-center text-amber-700 dark:text-yellow-200 mt-2 theme-transition">Your puzzle content will appear below</p>
+                </div>
+                
+                <!-- Iframe Container -->
+                <div class="p-8 flex justify-center">
+                    <div class="iframeContainer relative overflow-hidden rounded-xl shadow-2xl border-2 border-amber-300 dark:border-yellow-500 theme-transition" style="width: 800px; height: 550px;">
+                        <iframe src="https://www.brainzilla.com/logic/zebra/delightful-dresses/" 
+                                scrolling="no" 
+                                class="iframeContent absolute border-0"
+                                style="top: -760px; left: -500px; width: 1500px; height: 2000px; transform: scale(0.78);"
+                                title="Zebra Puzzle Game">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Decorative Section -->
+        <div class="mt-12 text-center">
+            <div class="inline-flex items-center space-x-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg border border-amber-200 dark:border-gray-600 theme-transition">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🏆</span>
+                    <span class="text-amber-800 dark:text-yellow-300 font-semibold theme-transition">Logic Master</span>
+                </div>
+                <div class="w-px h-6 bg-amber-300 dark:bg-yellow-400 theme-transition"></div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">⚡</span>
+                    <span class="text-orange-800 dark:text-amber-300 font-semibold theme-transition">Quick Thinking</span>
+                </div>
+                <div class="w-px h-6 bg-orange-300 dark:bg-amber-400 theme-transition"></div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🎯</span>
+                    <span class="text-yellow-800 dark:text-orange-300 font-semibold theme-transition">Problem Solver</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-amber-700 dark:text-yellow-300 theme-transition">
+            <div class="flex justify-center items-center space-x-2 mb-4">
+                <div class="text-xl">🦓</div>
+                <div class="h-px w-12 bg-amber-400 dark:bg-yellow-400 theme-transition"></div>
+                <div class="text-xl">🧩</div>
+                <div class="h-px w-12 bg-amber-400 dark:bg-yellow-400 theme-transition"></div>
+                <div class="text-xl">🏠</div>
+            </div>
+            <p class="text-sm opacity-75">Ready to challenge your logical thinking? The puzzle awaits!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dark mode functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const lightIcon = document.getElementById('lightIcon');
+        const darkIcon = document.getElementById('darkIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.remove('hidden');
+        }
+
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+            } else {
+                localStorage.setItem('theme', 'light');
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+            }
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.hover\\:shadow-xl').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966bbc20d0cb7f2b',t:'MTc1Mzc4Mjg2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
